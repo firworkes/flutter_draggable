@@ -9,11 +9,14 @@ class TableExample extends StatefulWidget {
 
 class _TableExampleState extends State<TableExample> {
   //The children of ReorderableTableRow must be of type ReorderableTableRow
+
+
   List<ReorderableTableRow> _itemRows;
 
   @override
   void initState() {
     super.initState();
+
     var data = [
       ['Alex', '20', '苹果', 'X1', '1'],
       ['Bob', '30', '梨子', 'X2', '2'],
@@ -27,12 +30,17 @@ class _TableExampleState extends State<TableExample> {
       return 
       GestureDetector(
         onTap: (){
-          print(text);
+          if(text == '苹果') {
+
+            print('22');
+          }
         },
+
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 4),
           child: Text(text, textScaleFactor: 1.1),
           // child: TextField(
+          //   controller: ,
           //   autofocus: true,
           //   decoration: InputDecoration(
           //       hintText: "用户名或邮箱",

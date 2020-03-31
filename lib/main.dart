@@ -21,11 +21,56 @@ class MyApp extends StatelessWidget {
             ),
             body: 
             // Tdemo5()
-            TableExample()
+            // TableExample()
+            MyTable()
 
         )
     );
   }
 }
+
+
+class MyTable extends StatelessWidget {
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: <Widget>[
+        DataTable(
+      
+          sortColumnIndex: 1,
+          sortAscending: true,
+          columns: [
+            DataColumn(label: Text('姓名'),tooltip: '长按提示'),
+            DataColumn(label: Text('年龄')),
+          ],
+          rows: [
+            DataRow(
+              onSelectChanged: (selected) {
+                
+              },
+              cells: [
+              DataCell(Text('老孟')),
+              DataCell(Text('18')),
+            ]
+            ),
+            DataRow(
+              // selected: true,
+              cells: [
+              DataCell(Text('大黄')),
+              DataCell(Text('20')),
+            ]
+            ),
+          ],
+        )
+      ],
+    );
+
+
+  }
+}
+
 
 
