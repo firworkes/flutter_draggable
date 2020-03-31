@@ -6,6 +6,7 @@ import './pages/Tdemo1.dart';
 import './pages/Tdemo2.dart';
 import './pages/Tdemo5.dart';
 
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -19,8 +20,8 @@ class MyApp extends StatelessWidget {
               title: Text('首页'),
             ),
             body: 
-            Tdemo5()
-            // TableExample()
+            // Tdemo5()
+            TableExample()
 
         )
     );

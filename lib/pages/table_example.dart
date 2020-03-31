@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '../components/ShowModalBottom.dart';
 import 'package:reorderables/reorderables.dart';
 
 class TableExample extends StatefulWidget {
@@ -24,9 +24,21 @@ class _TableExampleState extends State<TableExample> {
     ];
 
     Widget _textWithPadding(String text) {
-      return Padding(
-        padding: EdgeInsets.symmetric(vertical: 4),
-        child: Text(text, textScaleFactor: 1.1),
+      return 
+      GestureDetector(
+        onTap: (){
+          print(text);
+        },
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 4),
+          child: Text(text, textScaleFactor: 1.1),
+          // child: TextField(
+          //   autofocus: true,
+          //   decoration: InputDecoration(
+          //       hintText: "用户名或邮箱",
+          //   ),
+          // ),
+        )
       );
     }
 
@@ -54,11 +66,36 @@ class _TableExampleState extends State<TableExample> {
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text('Name', textScaleFactor: 1.5),
-        Text('Math', textScaleFactor: 1.5),
-        Text('Science', textScaleFactor: 1.5),
-        Text('Physics', textScaleFactor: 1.5),
-        Text('Sports', textScaleFactor: 1.5)
+        GestureDetector(
+          child: Text('书名', textScaleFactor: 1.5),
+          onTap: () {
+            modelBottomSheet(context);
+          },
+        ),
+        GestureDetector(
+          child: Text('作者', textScaleFactor: 1.5),
+          onTap: () {
+            modelBottomSheet(context);
+          },
+        ),
+        GestureDetector(
+          child: Text('出版日期', textScaleFactor: 1.5),
+          onTap: () {
+            modelBottomSheet(context);
+          },
+        ),
+        GestureDetector(
+          child: Text('码洋', textScaleFactor: 1.5),
+          onTap: () {
+            modelBottomSheet(context);
+          },
+        ),
+        GestureDetector(
+          child: Text('实洋', textScaleFactor: 1.5),
+          onTap: () {
+            modelBottomSheet(context);
+          },
+        )
       ]
     );
 
