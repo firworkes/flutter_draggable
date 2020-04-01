@@ -16,25 +16,48 @@ class _NewTableState extends State<NewTable> {
     {'name': '小白', 'age': '23', 'sex': '男'},
   ];
 
-  // List _MyListData() {
-  //   var newList = listData.map((value) {
-  //     return ReorderableListView(
-  //       children: <Widget>[],
-  //     );
-  //   });
-  // }
+
       _MyListData () {
+        dynamic content;
+        List<TableRow> tlist = <TableRow>[
+          TableRow(
+            children: [
+              SizedBox(
+              height: 30,
+              child: Text('姓名',style: TextStyle(fontWeight: FontWeight.bold),),
+            ),
+            
+            Text('年龄',style: TextStyle(fontWeight: FontWeight.bold),),
+            Text('性别',style: TextStyle(fontWeight: FontWeight.bold),),
+            ]
+          )
+        ];
 
         for(var item in listData) {
+          content = 
+          // Draggable(
+          //   child: DragTarget(builder: null), 
+          //   feedback: Material(
+          //     child: Row(
+          //       children: <Widget>[
+          //         Text(item['name']),
+          //         Text(item['age']),
+          //         Text(item['sex']),
+          //       ],
+          //     )
+              
+          //   )
+          // );
           TableRow (
-            children: <Widget>[
+            children: [
               Text(item['name']),
               Text(item['age']),
               Text(item['sex']),
             ]
           );
+          tlist.add(content);
         }
-      return listData;
+      return tlist;
   }
 
   @override
@@ -43,41 +66,8 @@ class _NewTableState extends State<NewTable> {
       border: TableBorder.all(
         color: Colors.black
       ),
-      children: [
-        // TableRow(
-        //   children: <Widget>[
-        //     SizedBox(
-        //       height: 30,
-        //       child: Text('姓名',style: TextStyle(fontWeight: FontWeight.bold),),
-        //     ),
-            
-        //     Text('年龄',style: TextStyle(fontWeight: FontWeight.bold),),
-        //     Text('性别',style: TextStyle(fontWeight: FontWeight.bold),),
-        //   ]
-        // ),
-        _MyListData()
-        // TableRow(
-        //   children: [
-        //     Text('111'),
-        //     Text('111'),
-        //     Text('111'),
-        //   ]
-        // ),
-        // TableRow(
-        //   children: [
-        //     Text('111'),
-        //     Text('111'),
-        //     Text('111'),
-        //   ]
-        // ),
-        // TableRow(
-        //   children: [
-        //     Text('111'),
-        //     Text('111'),
-        //     Text('111'),
-        //   ]
-        // ),
-      ],
+      children:  _MyListData()
+
     );
   }
 }

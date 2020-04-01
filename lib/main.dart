@@ -8,6 +8,7 @@ import './pages/Tdemo5.dart';
 import './pages/TableDrag.dart';
 import './pages/NewTable.dart';
 import './pages/NewTable2.dart';
+import './pages/NewTable3.dart';
 
 
 void main() => runApp(MyApp());
@@ -24,10 +25,11 @@ class MyApp extends StatelessWidget {
             ),
             body:
                 // Tdemo5()
+
                 // TableExample()
                 // TableDrag()
                 // MyTable()
-                NewTable()
+                NewTable3()
         )
     );
   }

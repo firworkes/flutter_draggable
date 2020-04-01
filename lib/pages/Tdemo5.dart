@@ -25,7 +25,7 @@ class _Tdemo5State extends State<Tdemo5> {
           childAspectRatio: 1 / 5,
           children: <Widget>[
             _getListView(_items1),
-            _getListView(_items2)
+            // _getListView(_items2)
           ],
         )
             
@@ -36,6 +36,7 @@ class _Tdemo5State extends State<Tdemo5> {
     return ListView.builder(
       itemCount: _items.length,
       itemBuilder: (context,index) {
+        // print(index);
         return Draggable(
           onDragCompleted: (){
             // 在拖动结束后删除数据R
@@ -75,19 +76,19 @@ class _Tdemo5State extends State<Tdemo5> {
                     // _items.add(data);
                     _items.remove(data);
                     _items.insert(index,data);
+                    print(index);
                   });
-                  // print(data);
                 },
               ),
               
               //原本的容器让它隐藏
-              Container(
-                height: 10,
-                width: 0,
-                color: Colors.blueAccent,
-                alignment: Alignment.center,
-                child: Text(_items[index],style: TextStyle(color: Colors.white),),
-              ),
+              // Container(
+              //   height: 10,
+              //   width: 0,
+              //   color: Colors.blueAccent,
+              //   alignment: Alignment.center,
+              //   child: Text(_items[index],style: TextStyle(color: Colors.white),),
+              // ),
             ],
           ), 
 
