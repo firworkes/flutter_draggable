@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../components/TableContent.dart';
 
 class NewTable3 extends StatefulWidget {
   NewTable3({Key key}) : super(key: key);
@@ -8,6 +9,22 @@ class NewTable3 extends StatefulWidget {
 }
 
 class _NewTable3State extends State<NewTable3> {
+  var flag=false;
+
+  //监听文本输入框焦点
+  FocusNode _focusNode = FocusNode();
+  @override
+  void initState() {
+    _focusNode.addListener(() {
+      //失去焦点
+      if (!_focusNode.hasFocus) {
+        setState(() {
+          this.flag = false;
+        });
+      }
+    });
+    super.initState();
+  }
 
   List listData = [
     {'name': '小强', 'age': '19', 'sex': '男'},
@@ -16,9 +33,9 @@ class _NewTable3State extends State<NewTable3> {
     {'name': '小白', 'age': '23', 'sex': '男'},
   ];
 
-  _MyTableLData() {
+  dynamic _MyTableLData() {
     dynamic content;
-    int _index;
+
     List<Widget> newData = <Widget> [
       Row(
         children: <Widget>[
@@ -59,44 +76,91 @@ class _NewTable3State extends State<NewTable3> {
       )
     ];
 
-    listData.asMap().keys.map((key) {
-      _index = key;
-      // print(_index);
-    }).toList();
-    for(var item in listData) {
-      
-      content = 
-        Draggable(
-          data: item,
+    for(var i=0; i < listData.length; i++) {
+
+      content = Draggable(
+          //拖拽时原位显示的容器
+          childWhenDragging: Row(
+            children: <Widget>[
+              Container(
+                alignment: Alignment.center,
+                width: 100.0,
+                height: 30.0,
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom:BorderSide(width: 1,color:Colors.black),
+                  )
+                ),
+                child: Text(listData[i]['name']),
+              ),
+              Container(
+                alignment: Alignment.center,
+                width: 100.0,
+                height: 30.0,
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom:BorderSide(width: 1,color:Colors.black),
+                  )
+                ),
+                child: Text(listData[i]['age']),
+              ),
+              Container(
+                alignment: Alignment.center,
+                width: 100.0,
+                height: 30.0,
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom:BorderSide(width: 1,color:Colors.black),
+                  )
+                ),
+                child: Text(listData[i]['sex']),
+              ),
+            ],
+          ),
+          //传递给DragTarget的数据
+          data: listData[i],
+          //接收拖拽组件的容器
           child: DragTarget(
-            onWillAccept: (data) {
-              print(data);
-              return data != null;
-            },
+
             //放到该控件时调用
             onAccept: (data) {
-              print(data);
               setState(() {
                 
-                listData.add(data);
                 listData.remove(data);
-                // listData.insert(index,data);
-              // print(index);
+                listData.insert(i,data);
+                // print(i);
               });
             },
             builder: (context, accepted, rejected){
+
             return Row(
               children: <Widget>[
-                Container(
-                  alignment: Alignment.center,
-                  width: 100.0,
-                  height: 30.0,
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom:BorderSide(width: 1,color:Colors.black),
-                    )
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      this.flag = true;
+                    });
+                    print(listData[i]['name']);
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    width: 100.0,
+                    height: 30.0,
+                    decoration: BoxDecoration(
+                      border: Border(
+                        bottom:BorderSide(width: 1,color:Colors.black),
+                      )
+                    ),
+                    child: this.flag == true ?
+                    TextField(
+                      focusNode: _focusNode,
+                      decoration: InputDecoration(
+                        hintText: "文本输入框"
+                      ), 
+                    ) 
+                    :
+                    Text(listData[i]['name']) 
                   ),
-                  child: Text(item['name']),
                 ),
                 Container(
                   alignment: Alignment.center,
@@ -107,7 +171,7 @@ class _NewTable3State extends State<NewTable3> {
                       bottom:BorderSide(width: 1,color:Colors.black),
                     )
                   ),
-                  child: Text(item['age']),
+                  child: Text(listData[i]['age']),
                 ),
                 Container(
                   alignment: Alignment.center,
@@ -118,11 +182,13 @@ class _NewTable3State extends State<NewTable3> {
                       bottom:BorderSide(width: 1,color:Colors.black),
                     )
                   ),
-                  child: Text(item['sex']),
+                  child: Text(listData[i]['sex']),
                 ),
+
               ],
             );
           }),
+          // 拖拽时的样式
         feedback: Material(
           child: Row(
             children: <Widget>[
@@ -135,7 +201,7 @@ class _NewTable3State extends State<NewTable3> {
                     bottom:BorderSide(width: 1,color:Colors.black),
                   )
                 ),
-                child: Text(item['name']),
+                child: Text(listData[i]['name']),
               ),
               Container(
                 alignment: Alignment.center,
@@ -146,7 +212,7 @@ class _NewTable3State extends State<NewTable3> {
                     bottom:BorderSide(width: 1,color:Colors.black),
                   )
                 ),
-                child: Text(item['age']),
+                child: Text(listData[i]['age']),
               ),
               Container(
                 alignment: Alignment.center,
@@ -157,15 +223,16 @@ class _NewTable3State extends State<NewTable3> {
                     bottom:BorderSide(width: 1,color:Colors.black),
                   )
                 ),
-                child: Text(item['sex']),
+                child: Text(listData[i]['sex']),
               ),
             ],
           ),
         )
       );
-
-      newData.add(content);
+        //添加进主体内容
+        newData.add(content);
     }
+
     return newData;
 
   }
