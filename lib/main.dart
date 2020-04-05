@@ -9,6 +9,8 @@ import './pages/TableDrag.dart';
 import './pages/NewTable.dart';
 import './pages/NewTable2.dart';
 import './pages/NewTable3.dart';
+import './pages/DataTable.dart';
+import './pages/TextFocusManagerTest.dart';
 
 
 void main() => runApp(MyApp());
@@ -30,6 +32,7 @@ class MyApp extends StatelessWidget {
                 // TableDrag()
                 // MyTable()
                 NewTable3()
+                // TextFocusManagerTest()
         )
     );
   }

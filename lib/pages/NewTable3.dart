@@ -9,28 +9,35 @@ class NewTable3 extends StatefulWidget {
 }
 
 class _NewTable3State extends State<NewTable3> {
-  var flag=false;
+
+  var _username = new TextEditingController();   //初始化的时候给表单赋值
+
 
   //监听文本输入框焦点
   FocusNode _focusNode = FocusNode();
   @override
   void initState() {
+
     _focusNode.addListener(() {
       //失去焦点
       if (!_focusNode.hasFocus) {
-        setState(() {
-          this.flag = false;
-        });
+        for(var i=0; i < listData.length;i++) {
+            setState(() {
+            
+              listData[i]['edit'] = '1';
+            
+          });
+        }
       }
     });
     super.initState();
   }
 
   List listData = [
-    {'name': '小强', 'age': '19', 'sex': '男'},
-    {'name': '小明', 'age': '29', 'sex': '男'},
-    {'name': '小红', 'age': '39', 'sex': '女'},
-    {'name': '小白', 'age': '23', 'sex': '男'},
+    {'name': '小强', 'age': '19', 'sex': '男','edit': '1'},
+    {'name': '小明', 'age': '29', 'sex': '男','edit': '1'},
+    {'name': '小红', 'age': '39', 'sex': '女','edit': '1'},
+    {'name': '小白', 'age': '23', 'sex': '男','edit': '1'},
   ];
 
   dynamic _MyTableLData() {
@@ -63,7 +70,7 @@ class _NewTable3State extends State<NewTable3> {
           ),
           Container(
             alignment: Alignment.center,
-            width: 100.0,
+            width: 130.0,
             height: 30.0,
             decoration: BoxDecoration(
               border: Border(
@@ -78,7 +85,7 @@ class _NewTable3State extends State<NewTable3> {
 
     for(var i=0; i < listData.length; i++) {
 
-      content = Draggable(
+      content = LongPressDraggable(
           //拖拽时原位显示的容器
           childWhenDragging: Row(
             children: <Widget>[
@@ -137,10 +144,14 @@ class _NewTable3State extends State<NewTable3> {
               children: <Widget>[
                 GestureDetector(
                   onTap: () {
+                    if(_focusNode.hasFocus) {
+                      _focusNode.unfocus();
+                    }
                     setState(() {
-                      this.flag = true;
+                      listData[i]['edit'] = '2';
+                      _username.text = listData[i]['name']; 
                     });
-                    print(listData[i]['name']);
+
                   },
                   child: Container(
                     alignment: Alignment.center,
@@ -151,13 +162,38 @@ class _NewTable3State extends State<NewTable3> {
                         bottom:BorderSide(width: 1,color:Colors.black),
                       )
                     ),
-                    child: this.flag == true ?
-                    TextField(
-                      focusNode: _focusNode,
-                      decoration: InputDecoration(
-                        hintText: "文本输入框"
-                      ), 
-                    ) 
+                    child: listData[i]['edit'] == '2' ?
+                    Stack(
+                      children: <Widget>[
+                        Text(listData[i]['name']),
+                        Container(
+                          child: TextField(
+                            //获取文本输入的值
+                            onChanged: (value){
+                              setState(() {
+                                  listData[i]['name']=value; 
+                              });
+                            },
+                            autofocus: true,
+                            controller: _username, //绑定值
+                            maxLines: 1,
+                            style: TextStyle(fontSize: 18.0 ),
+                            focusNode: _focusNode,
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.all(5.0),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(6.0), //边框线圆角
+                              ),
+                              // border: InputBorder.none, //取消边框线
+                              filled: true, //开启背景颜色
+                              fillColor: Colors.white, //背景颜色
+                              // hintText: "输入"
+                            ), 
+                          ),
+                        )
+                      ],
+                    )
+                     
                     :
                     Text(listData[i]['name']) 
                   ),
@@ -175,7 +211,7 @@ class _NewTable3State extends State<NewTable3> {
                 ),
                 Container(
                   alignment: Alignment.center,
-                  width: 100.0,
+                  width: 130.0,
                   height: 30.0,
                   decoration: BoxDecoration(
                     border: Border(
@@ -239,8 +275,28 @@ class _NewTable3State extends State<NewTable3> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-        children: _MyTableLData()
-      );
+    return GestureDetector( //获取全屏点击
+    behavior: HitTestBehavior.translucent,
+    onTap: () {
+        _focusNode.unfocus();
+        // 触摸收起键盘
+        FocusScope.of(context).requestFocus(FocusNode());
+    },
+
+    child: Container(
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.black,
+          width: 2
+        )
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: _MyTableLData(),
+      ),
+    )
+
+    );
+
   }
 }

@@ -17,11 +17,6 @@ class TableContent extends StatelessWidget {
         )
       ),
       child: Text(contentData),
-      // child: TextField(
-      //   decoration: InputDecoration(
-      //     hintText: "文本输入框"
-      //   ), 
-      // ),
     );
   }
 }
