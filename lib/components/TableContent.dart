@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import '../components/TableTextFied.dart';
 
 class TableContent extends StatefulWidget {
-  TableContent({Key key, this.editData, this.item, @required this.onChanged}) : super(key: key);
+  TableContent({Key key, this.editData, this.item, this.weibo}) : super(key: key);
   var editData; //需要编辑数据
   String item; //编辑的字段
 
+  Map weibo={'add': '11'};
 
-  final  ValueChanged<bool> onChanged;  //子传父事件
 
   @override
   _TableContentState createState() => _TableContentState();

@@ -8,7 +8,7 @@ import './pages/Tdemo5.dart';
 import './pages/TableDrag.dart';
 import './pages/NewTable.dart';
 import './pages/NewTable2.dart';
-import './pages/NewTable3.dart';
+import './pages/NewTable.dart';
 import './pages/DataTable.dart';
 import './pages/TextFocusManagerTest.dart';
 
