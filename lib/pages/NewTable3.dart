@@ -9,9 +9,14 @@ class NewTable3 extends StatefulWidget {
 }
 
 class _NewTable3State extends State<NewTable3> {
-
+  // var childData;
   var _username = new TextEditingController();   //初始化的时候给表单赋值
 
+  // void onChanged(val) {
+  //   setState(() {
+  //     childData = val;
+  //   });
+  // }
 
   //监听文本输入框焦点
   FocusNode _focusNode = FocusNode();
@@ -135,69 +140,13 @@ class _NewTable3State extends State<NewTable3> {
                 
                 listData.remove(data);
                 listData.insert(i,data);
-                // print(i);
               });
             },
             builder: (context, accepted, rejected){
 
             return Row(
               children: <Widget>[
-                GestureDetector(
-                  onTap: () {
-                    if(_focusNode.hasFocus) {
-                      _focusNode.unfocus();
-                    }
-                    setState(() {
-                      listData[i]['edit'] = '2';
-                      _username.text = listData[i]['name']; 
-                    });
-
-                  },
-                  child: Container(
-                    alignment: Alignment.center,
-                    width: 100.0,
-                    height: 30.0,
-                    decoration: BoxDecoration(
-                      border: Border(
-                        bottom:BorderSide(width: 1,color:Colors.black),
-                      )
-                    ),
-                    child: listData[i]['edit'] == '2' ?
-                    Stack(
-                      children: <Widget>[
-                        Text(listData[i]['name']),
-                        Container(
-                          child: TextField(
-                            //获取文本输入的值
-                            onChanged: (value){
-                              setState(() {
-                                  listData[i]['name']=value; 
-                              });
-                            },
-                            autofocus: true,
-                            controller: _username, //绑定值
-                            maxLines: 1,
-                            style: TextStyle(fontSize: 18.0 ),
-                            focusNode: _focusNode,
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.all(5.0),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(6.0), //边框线圆角
-                              ),
-                              // border: InputBorder.none, //取消边框线
-                              filled: true, //开启背景颜色
-                              fillColor: Colors.white, //背景颜色
-                              // hintText: "输入"
-                            ), 
-                          ),
-                        )
-                      ],
-                    )
-                     
-                    :
-                    Text(listData[i]['name']) 
-                  ),
-                ),
+                TableContent(editData: listData[i], item: 'name'),
                 Container(
                   alignment: Alignment.center,
                   width: 100.0,
@@ -280,22 +229,46 @@ class _NewTable3State extends State<NewTable3> {
     onTap: () {
         _focusNode.unfocus();
         // 触摸收起键盘
-        FocusScope.of(context).requestFocus(FocusNode());
+        // FocusScope.of(context).requestFocus(FocusNode());
     },
 
-    child: Container(
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.black,
-          width: 2
-        )
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: _MyTableLData(),
-      ),
-    )
-
+    child: ListView(
+        children: <Widget>[
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: _MyTableLData(),
+          ),
+          SizedBox(height:20),
+          Container(
+            child: RaisedButton(
+            child: Text('添加行'),
+              onPressed: () {
+                setState(() {
+                  this.listData.add(
+                    {'name': '', 'age': '', 'sex': ''}
+                  );
+                });
+              }
+            ),
+          ),
+          Container(
+            child: RaisedButton(
+            child: Text('添加列'),
+              onPressed: () {
+                setState(() {
+                  for(var item in this.listData) {
+                    // item
+                    item['id'] = '1111';
+                    print(item);
+                  }
+                });
+              }
+            ),
+          )
+          
+        ],
+      
+      )
     );
 
   }
